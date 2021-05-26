@@ -1,1 +1,1 @@
-# Computational-Graphics-Course
+# Squash Game
