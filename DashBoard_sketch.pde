@@ -2,12 +2,12 @@
  * La siguiente clase permite dibujar una grafica de pastel, aunque a largo plazo esta clase puede
  * escalarse para soportar más tipos de graficas
  */
-public class Grafica{
+public class Dashboard{
   int [] array_valores;
   PVector posicion;
   PVector posLabels;
   
-  public Grafica() {
+  public Dashboard() {
     this.posicion = new PVector(width/2, height/2 - 50);
     this.posLabels = new PVector(posicion.x - (posicion.x*.5), 25);
   }

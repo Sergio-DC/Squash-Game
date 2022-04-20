@@ -4,17 +4,18 @@ import java.util.Observable;
  * entidad observable que emite eventos hacia las entidades observadoras que serian los jugadores.
  * Los eventos se dan cuando la pelota colisiona con el jugador
  **/
-class Pelota extends Observable {
-  PVector posicion;
-  float diam;
-  boolean isUp;
-  float limiteIzq, limiteDer, limiteTop;
-  int velocidad;
-  int[] color_pelota;
-  float speedX, speedY;
-  String estadoTurno;//Nos indica que jugador puede pegarle a la pelota, dos valores posibles {"A", "B"}
-  boolean fueraDelCampo;//Indica si la bandera esta dentro(false) o fuera(true) del campo
-  public Pelota(PVector posicion, int velocidad, int [] color_pelota) {
+class Ball extends Observable {
+  private PVector posicion;
+  private float diam;
+  private boolean isUp;
+  private float limiteIzq, limiteDer, limiteTop;
+  private int velocidad;
+  private int[] color_pelota;
+  private float speedX, speedY;
+  private String estadoTurno;//Nos indica que jugador puede pegarle a la pelota, dos valores posibles {"A", "B"}
+  private boolean fueraDelCampo;//Indica si la bandera esta dentro(false) o fuera(true) del campo
+  
+  public Ball(PVector posicion, int velocidad, int [] color_pelota) {
      this.posicion = posicion;
      this.diam = 20;
      this.velocidad = velocidad;
@@ -34,9 +35,9 @@ class Pelota extends Observable {
      // Si la pelota golpea al jugador se invierte la direccion de esta
      if ( this.posicion.x > player.position.x && this.posicion.x < (player.position.x + player.ancho)
            && this.posicion.y > (player.position.y) && this.posicion.y < (player.position.y + player.alto)
-           && player.nombre.equals(this.estadoTurno)) {
+           && player.name.equals(this.estadoTurno)) {
         isUp = true;
-        if (player.nombre.equals("B")){
+        if (player.name.equals("B")){
           speedX = speedX * random(-4, 4);
           speedY = speedY * -2;
           this.estadoTurno = "A";

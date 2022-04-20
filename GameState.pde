@@ -1,23 +1,24 @@
-Pelota pelota;
-public class EstadoJuego {
-    int PTS_MAX_TO_WIN = 4;
-    boolean finDelJuego;
-    boolean ganoJugadorA;
-    boolean volver_a_sacar;
-    boolean jugador_A_saca;
-    Player ganador;
-    Cancha cancha;
-    Player player1, player2;
-    CRUD_File crud_file;
-    Grafica grafica;
+
+public class GameState {
+    private int PTS_MAX_TO_WIN = 4;
+    private boolean finDelJuego;
+    private boolean ganoJugadorA;
+    private boolean volver_a_sacar;
+    private boolean jugador_A_saca;
+    private Player winner;
+    private Field field;
+    private Player player1, player2;
+    private CRUD_File crud_file;
+    private Dashboard dashboard;
+    private Ball ball;
   
-   public EstadoJuego() {
+   public GameState() {
      this.finDelJuego = false;
      this.volver_a_sacar = false;
      this.jugador_A_saca = true;
      this.ganoJugadorA = false;
      crud_file = new CRUD_File();
-     grafica = new Grafica();
+     this.dashboard = new Dashboard();
      //Observers  
      PVector PLAYER1_POSITION = new PVector(width * .35,height/2 + 25);//Punto de Spawn del Player 1
      PVector PLAYER2_POSITION = new PVector(width * .60,height/2 + 25);//Punto de Spawn del Player 2
@@ -28,38 +29,38 @@ public class EstadoJuego {
    public void configInitJuego() {
      leerArchivo();
      //Observable
-     pelota = new Pelota(new PVector(width/2, height/2), 4, new int[] {0,0,255});
+     ball = new Ball(new PVector(width/2, height/2), 4, new int[] {0,0,255});
      
      //Colocamos los jugadores en la cancha
-     cancha = new Cancha(player1, player2, pelota);
+     field = new Field(player1, player2, ball);
      //Los jugadores se suscriben a los eventos emitidos por la pelota (Patron Observer)
-     pelota.addObserver(player1);
-     pelota.addObserver(player2);
-     pelota.estadoTurno = "A";//El primero en pegarle a la pelota será el jugador A
+     ball.addObserver(player1);
+     ball.addObserver(player2);
+     ball.estadoTurno = "A";//El primero en pegarle a la pelota será el jugador A
    }
    void correrJuego() {
        this.finDelJuego = false;
-       cancha.dibujarCancha();
+       field.dibujarCancha();
       if(volver_a_sacar) {//Respawn de la pelota
          delay(1000);
-         pelota.posicion.x = width/2;
-         pelota.posicion.y = height/2;
-         pelota.speedX = random(-1, 2) * 6;
-         pelota.speedY =  -6;
+         ball.posicion.x = width/2;
+         ball.posicion.y = height/2;
+         ball.speedX = random(-1, 2) * 6;
+         ball.speedY =  -6;
          volver_a_sacar = false;
-         pelota.estadoTurno = (jugador_A_saca) ?  "B" : "A";
+         ball.estadoTurno = (jugador_A_saca) ?  "B" : "A";
       }
       println("score_1: " + player1.score + "   score_2: " + player2.score);
       if(this.player1.score > PTS_MAX_TO_WIN) {        
           this.finDelJuego = true;
-          this.ganador = player1;
-          this.ganador.partidasGanadas += 1;//Se incremena el numero de partidas ganadas de A
+          this.winner = player1;
+          this.winner.partidasGanadas += 1;//Se incremena el numero de partidas ganadas de A
       }
       
       if(this.player2.score > PTS_MAX_TO_WIN) {
          this.finDelJuego = true;
-         this.ganador = player2;
-         this.ganador.partidasGanadas += 1;//Se incremena el numero de partidas ganadas de A
+         this.winner = player2;
+         this.winner.partidasGanadas += 1;//Se incremena el numero de partidas ganadas de A
       }
         
    }
@@ -92,7 +93,7 @@ public class EstadoJuego {
        fill(14, 247, 191 );
        textSize(30);
        textAlign(CENTER);
-       text("El ganador es: " + this.ganador.nombre,width/2,50);
+       text("El ganador es: " + this.winner.name,width/2,50);
        textAlign(CENTER);
        text("Presiona 'm' para volver al menu",width/2,100);
    }
@@ -111,7 +112,7 @@ public class EstadoJuego {
    public void dibujarPartidasGanadas(){
      background(0);
      textSize(32);
-     grafica.pieChart(300, new Player[] {player1, player2});
+     this.dashboard.pieChart(300, new Player[] {player1, player2});
      fill(player1.rgb_color[0], player1.rgb_color[1], player1.rgb_color[2]);
      ellipse(width/2 - 25, height - 150, 10, 10);
 
@@ -138,10 +139,10 @@ public class EstadoJuego {
   }
    
    public void terminarJuego() {
-      pelota = null;
+      ball = null;
       player1.score = 0;
       player2.score = 0;
-      cancha = null;
+      field = null;
       this.finDelJuego = true;
    }
    

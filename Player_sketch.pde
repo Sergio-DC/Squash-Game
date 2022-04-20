@@ -4,25 +4,25 @@ import java.util.Observer;
  * La siguiente clase representa a un jugador, 
  */
 class Player implements Observer{
-  PVector position;
-  String nombre;
-  float ancho;
-  float alto;
-  int [] rgb_color = new int[3];
-  int score;
-  float lastPosX, lastPosY;
-  int partidasGanadas;
+  private PVector position;
+  private String name;
+  private float ancho;
+  private float alto;
+  private int [] rgb_color = new int[3];
+  private int score;
+  private float lastPosX, lastPosY;
+  private int partidasGanadas;
   
-  public Player(PVector position,String nombre,int[] rgb_color, int score) {
+  public Player(PVector position, String name,int[] rgb_color, int score) {
     this.position = position;
-    this.nombre = nombre;
+    this.name = name;
     this.ancho = width * 2/16;
     this.alto = 11;
     this.rgb_color = rgb_color;
     this.score = score;
   }
   
-  void movePlayer(float origenX, float ancho, float largo) {
+  public void movePlayer(float origenX, float ancho, float largo) {
    
      strokeWeight(5);
      point(origenX, 100);
@@ -44,14 +44,14 @@ class Player implements Observer{
   
   @Override
   public void update(Observable o, Object val) {
-     if(((Pelota)val).fueraDelCampo && this.nombre.equals("B") && ((Pelota)val).estadoTurno.equals("A")) {//Si era el turno de A pero fallo
-         ((Pelota)val).fueraDelCampo = false;             
+     if(((Ball)val).fueraDelCampo && this.name.equals("B") && ((Ball)val).estadoTurno.equals("A")) {//Si era el turno de A pero fallo
+         ((Ball)val).fueraDelCampo = false;             
          this.score += 1;//Se suma el punto a B
          //print("B gano un punto");
          juego.jugador_A_saca = false;
          juego.volver_a_sacar = true;
-     } else if(((Pelota)val).fueraDelCampo && this.nombre.equals("A") && ((Pelota)val).estadoTurno.equals("B")) {//Si era el turno de B pero fallo  
-           ((Pelota)val).fueraDelCampo = false;                                     
+     } else if(((Ball)val).fueraDelCampo && this.name.equals("A") && ((Ball)val).estadoTurno.equals("B")) {//Si era el turno de B pero fallo  
+           ((Ball)val).fueraDelCampo = false;                                     
            this.score += 1;//Se suma un punto a A
            //print("A gano un punto");
            juego.jugador_A_saca = true;

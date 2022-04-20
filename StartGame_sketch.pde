@@ -1,4 +1,4 @@
-EstadoJuego juego;
+GameState juego;
 boolean p1_menu_activo = true;
 boolean p2_grafico_activo = false;
 boolean p3_juego_activo = false;
@@ -11,7 +11,7 @@ boolean archivoLeido = false;
 
 void setup(){
   size(600, 600);
-  juego = new EstadoJuego();
+  juego = new GameState();
 }
 
 void draw() {     //<>//

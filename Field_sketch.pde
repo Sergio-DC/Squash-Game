@@ -1,24 +1,24 @@
 /**
  * La siguiente clase representa una cancha de squash
  **/
-public class Cancha {
-  float padding_x = 75;
-  float padding_y_top = 20;
-  float ancho = width - (padding_x * 2);
-  float largo = height - (padding_y_top * 2);
-  float muroIzquierdo = padding_x;
-  float muroTop = padding_y_top;
-  float limiteCampoY = muroTop + (largo * 15/16);
-  Player player1;
-  Player player2;
-  Pelota pelota;
+public class Field {
+  private float padding_x = 75;
+  private float padding_y_top = 20;
+  private float ancho = width - (padding_x * 2);
+  private float largo = height - (padding_y_top * 2);
+  private float muroIzquierdo = padding_x;
+  private float muroTop = padding_y_top;
+  private float limiteCampoY = muroTop + (largo * 15/16);
+  private Player player1;
+  private Player player2;
+  private Ball ball;
   
-  public Cancha(Player player1, Player player2, Pelota pelota) {
+  public Field(Player player1, Player player2, Ball ball) {
     this.player1 = player1;
     this.player2 = player2;
-    this.pelota = pelota;
+    this.ball = ball;
     //Le indica a la pelota hasta donde puede rebotar
-    pelota.definirLimites(muroIzquierdo,muroIzquierdo + ancho, muroTop);
+    this.ball.definirLimites(muroIzquierdo,muroIzquierdo + ancho, muroTop);
   }
 
   public void dibujarCancha(){
@@ -31,14 +31,14 @@ public class Cancha {
     scale(0.95);
     rect(muroIzquierdo, muroTop, ancho, largo); //Cancha de Squashs    
     dibujarDelimitaciones();
-    pelota.dibujarPelota();
+    this.ball.dibujarPelota();
     //Debe ir dentro de push/pop matrix para que no se salgo del campo
     player1.movePlayer(muroIzquierdo, ancho, largo);
     player2.movePlayer(muroIzquierdo, ancho, largo);
-    pelota.listenerCollisionPlayer(player1);
-    pelota.listenerCollisionPlayer(player2);
-    pelota.listenerCollisionWall();
-    pelota.listenerOutOfField(limiteCampoY);
+    this.ball.listenerCollisionPlayer(player1);
+    this.ball.listenerCollisionPlayer(player2);
+    this.ball.listenerCollisionWall();
+    this.ball.listenerOutOfField(limiteCampoY);
     popMatrix();
     scoreBoard(muroIzquierdo,muroTop, ancho);
   }
