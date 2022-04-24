@@ -22,14 +22,14 @@ public class GameState {
      //Observers  
      PVector PLAYER1_POSITION = new PVector(width * .35,height/2 + 25);//Punto de Spawn del Player 1
      PVector PLAYER2_POSITION = new PVector(width * .60,height/2 + 25);//Punto de Spawn del Player 2
-     player1 = new Player(PLAYER1_POSITION,"A", new PlayerFiller(ColorName.ORANGE), 0);
-     player2 = new Player(PLAYER2_POSITION,"B",new PlayerFiller(ColorName.BLUE), 0);
+     player1 = new Player(PLAYER1_POSITION,"A", new ObjectFiller(ColorName.ORANGE), 0);
+     player2 = new Player(PLAYER2_POSITION,"B",new ObjectFiller(ColorName.BLUE), 0);
    }
    
    public void configInitJuego() {
      leerArchivo();
      //Observable
-     ball = new Ball(new PVector(width/2, height/2), 4, new int[] {0,0,255});
+     ball = new Ball(new PVector(width/2, height/2), 4, new ObjectFiller(ColorName.BLUE));
      
      //Colocamos los jugadores en la cancha
      field = new Field(player1, player2, ball);

@@ -10,17 +10,17 @@ class Ball extends Observable {
   private boolean isUp;
   private float limiteIzq, limiteDer, limiteTop;
   private int velocidad;
-  private int[] color_pelota;
+  private ObjectFiller ballFiller;
   private float speedX, speedY;
   private String estadoTurno;//Nos indica que jugador puede pegarle a la pelota, dos valores posibles {"A", "B"}
   private boolean fueraDelCampo;//Indica si la bandera esta dentro(false) o fuera(true) del campo
   
-  public Ball(PVector posicion, int velocidad, int [] color_pelota) {
+  public Ball(PVector posicion, int velocidad, ObjectFiller objectFiller) {
      this.posicion = posicion;
      this.diam = 20;
      this.velocidad = velocidad;
      this.isUp = true;
-     this.color_pelota = color_pelota;
+     this.ballFiller = objectFiller;
      this.fueraDelCampo = false;
      speedX = -6;
      speedY =  6;
@@ -41,9 +41,7 @@ class Ball extends Observable {
           speedX = speedX * random(-4, 4);
           speedY = speedY * -2;
           this.estadoTurno = "A";
-          this.color_pelota[0] = 0;
-          this.color_pelota[1] = 0;
-          this.color_pelota[2] = 255;
+          this.ballFiller.fillIt();
           if(!this.fueraDelCampo) {
             setChanged();
             notifyObservers(this);
@@ -52,9 +50,7 @@ class Ball extends Observable {
           speedX = speedX * random(-4, 4);
           speedY = speedY * -2;
            this.estadoTurno = "B";
-           this.color_pelota[0] = 254;
-           this.color_pelota[1] = 135;
-           this.color_pelota[2] = 66;
+           this.ballFiller.fillIt();
            if(!this.fueraDelCampo) {
              setChanged();
              notifyObservers(this);
@@ -111,7 +107,7 @@ class Ball extends Observable {
       this.posicion.x = this.posicion.x + speedX;
       this.posicion.y = this.posicion.y + speedY;
       noStroke();
-      fill(color_pelota[0],color_pelota[1],color_pelota[2]);
+      this.ballFiller.fillIt();
       ellipse(this.posicion.x, this.posicion.y, diam, diam);
    }
    

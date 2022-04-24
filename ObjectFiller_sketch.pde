@@ -3,6 +3,7 @@
 
 public enum ColorName {
   ORANGE("orange"),
+  GREEN("green"),
   BLUE("blue");
   
   private String colorName;
@@ -17,10 +18,10 @@ public enum ColorName {
   
 }
 
-public class PlayerFiller {
+public class ObjectFiller {
   private ColorName colorName;
   
-  public PlayerFiller(ColorName colorName) {
+  public ObjectFiller(ColorName colorName) {
      this.colorName = colorName; 
   }
   
@@ -32,6 +33,8 @@ public class PlayerFiller {
          case BLUE:
            fill(254, 135, 66);
            break;
+         case GREEN:
+           fill(0,255,0);
       }
   }
   

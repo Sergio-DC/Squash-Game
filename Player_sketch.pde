@@ -11,15 +11,15 @@ class Player implements Observer{
   private int score;
   private float lastPosX, lastPosY;
   private int partidasGanadas;
-  private PlayerFiller playerFiller;
+  private ObjectFiller playerFiller;
   
-  public Player(PVector position, String name, PlayerFiller playerFiller, int score) {
+  public Player(PVector position, String name, ObjectFiller objectFiller, int score) {
     this.position = position;
     this.name = name;
     this.ancho = width * 2/16;
     this.alto = 11;
     this.score = score;
-    this.playerFiller = playerFiller;
+    this.playerFiller = objectFiller;
   }
   
   public void movePlayer(float origenX, float ancho, float largo) {
@@ -59,7 +59,7 @@ class Player implements Observer{
      }
   }
   
-  public PlayerFiller getPlayerFiller() {
+  public ObjectFiller getPlayerFiller() {
      return this.playerFiller; 
   }
 }

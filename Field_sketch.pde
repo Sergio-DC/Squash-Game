@@ -12,6 +12,7 @@ public class Field {
   private Player player1;
   private Player player2;
   private Ball ball;
+  private ObjectFiller fieldFiller;
   
   public Field(Player player1, Player player2, Ball ball) {
     this.player1 = player1;
@@ -19,6 +20,7 @@ public class Field {
     this.ball = ball;
     //Le indica a la pelota hasta donde puede rebotar
     this.ball.definirLimites(muroIzquierdo,muroIzquierdo + ancho, muroTop);
+    this.fieldFiller = new ObjectFiller(ColorName.GREEN);
   }
 
   public void dibujarCancha(){
@@ -26,7 +28,7 @@ public class Field {
     fill(150);
     rect(muroIzquierdo, muroTop, ancho, largo);//Base para la cancha de SQUASH
     pushMatrix();
-    fill(0,255,0);
+    this.fieldFiller.fillIt();
     translate(15,15);
     scale(0.95);
     rect(muroIzquierdo, muroTop, ancho, largo); //Cancha de Squashs    
