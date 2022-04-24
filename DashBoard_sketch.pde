@@ -15,7 +15,7 @@ public class Dashboard{
   public void pieChart(float diameter, Player[] player) {
       array_valores = ajustarValores(new int[]{player[0].partidasGanadas, player[1].partidasGanadas});
       float lastAngle = 0;
-      for (int i = 0; i < array_valores.length; i++) {
+      /*for (int i = 0; i < array_valores.length; i++) {
         float canal_rojo = player[i].rgb_color[0];
         float canal_verde = player[i].rgb_color[1];
         float canal_azul = player[i].rgb_color[2];
@@ -28,7 +28,7 @@ public class Dashboard{
           fill(canal_rojo, canal_verde, canal_azul);
           fill(0);
         popMatrix(); 
-      }  
+      }*/  
   }
   private int [] ajustarValores(int [] array_valores) {
       //Calcular Suma de valores de la lista

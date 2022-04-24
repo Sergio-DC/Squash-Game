@@ -8,18 +8,18 @@ class Player implements Observer{
   private String name;
   private float ancho;
   private float alto;
-  private int [] rgb_color = new int[3];
   private int score;
   private float lastPosX, lastPosY;
   private int partidasGanadas;
+  private PlayerFiller playerFiller;
   
-  public Player(PVector position, String name,int[] rgb_color, int score) {
+  public Player(PVector position, String name, PlayerFiller playerFiller, int score) {
     this.position = position;
     this.name = name;
     this.ancho = width * 2/16;
     this.alto = 11;
-    this.rgb_color = rgb_color;
     this.score = score;
+    this.playerFiller = playerFiller;
   }
   
   public void movePlayer(float origenX, float ancho, float largo) {
@@ -30,8 +30,8 @@ class Player implements Observer{
      if(this.position.x > (origenX - this.ancho) && this.position.x < origenX + ancho
      && this.position.y > (largo*.53) && this.position.y < largo){//Esta dentro de la cancha
        noStroke();
-       fill(this.rgb_color[0],this.rgb_color[1],this.rgb_color[2]);
-       rect(this.position.x, this.position.y, this.ancho, 10);
+       this.playerFiller.fillIt();
+       rect(this.position.x, this.position.y, this.ancho, 10);//draw the player
        this.position.x = this.position.x;
        this.position.y = this.position.y;
        lastPosX = this.position.x;
@@ -57,5 +57,9 @@ class Player implements Observer{
            juego.jugador_A_saca = true;
            juego.volver_a_sacar = true;
      }
+  }
+  
+  public PlayerFiller getPlayerFiller() {
+     return this.playerFiller; 
   }
 }

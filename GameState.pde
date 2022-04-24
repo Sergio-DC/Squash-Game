@@ -22,8 +22,8 @@ public class GameState {
      //Observers  
      PVector PLAYER1_POSITION = new PVector(width * .35,height/2 + 25);//Punto de Spawn del Player 1
      PVector PLAYER2_POSITION = new PVector(width * .60,height/2 + 25);//Punto de Spawn del Player 2
-     player1 = new Player(PLAYER1_POSITION,"A",new int[] {0,0,255}, 0);
-     player2 = new Player(PLAYER2_POSITION,"B",new int[] {254, 135, 66}, 0);
+     player1 = new Player(PLAYER1_POSITION,"A", new PlayerFiller(ColorName.ORANGE), 0);
+     player2 = new Player(PLAYER2_POSITION,"B",new PlayerFiller(ColorName.BLUE), 0);
    }
    
    public void configInitJuego() {
@@ -113,11 +113,11 @@ public class GameState {
      background(0);
      textSize(32);
      this.dashboard.pieChart(300, new Player[] {player1, player2});
-     fill(player1.rgb_color[0], player1.rgb_color[1], player1.rgb_color[2]);
+     player1.getPlayerFiller().fillIt();
      ellipse(width/2 - 25, height - 150, 10, 10);
 
      text("A: " + this.player1.partidasGanadas, width/2 + 5, height - 145);
-     fill(player2.rgb_color[0], player2.rgb_color[1], player2.rgb_color[2]);
+     player2.getPlayerFiller().fillIt();
      ellipse(width/2 - 25, height - 100, 10, 10);
       //textAlign(CENTER, TOP);
      text("B: " + this.player2.partidasGanadas, width/2 + 5, height - 95);

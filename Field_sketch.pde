@@ -48,12 +48,12 @@ public class Field {
      float desfaseY = 50;
       
      textSize(32);
-     fill(player1.rgb_color[0],player1.rgb_color[1],player1.rgb_color[2]);
+     player1.getPlayerFiller().fillIt();
      textAlign(RIGHT);
      text(player1.score, origenX - desfaseX, origenY + desfaseY);
      text("A", origenX - desfaseX, origenY + (desfaseY*2));
      
-     fill(player2.rgb_color[0],player2.rgb_color[1],player2.rgb_color[2]);
+     player2.getPlayerFiller().fillIt();
      textAlign(LEFT);
      text(player2.score, origenX + ancho + desfaseX, origenY + desfaseY);
      text("B", origenX + ancho + desfaseX, origenY + (desfaseY*2));
